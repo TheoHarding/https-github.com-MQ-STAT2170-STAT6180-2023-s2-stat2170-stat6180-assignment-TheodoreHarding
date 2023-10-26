@@ -1,5 +1,5 @@
 
-cake <- read.csv("./Data/cake.csv")
+cake <- read.csv("cake.csv")
 
 
 #Part A
@@ -19,10 +19,12 @@ av = aov(formula = Angle~Recipe*Temp, data = cake)
 
 #Part D
 summary(av)
-plot(av)
+plot(av)  
+
+
 
 #Part E
-me  <- aov(formula = Angle~Recipe+Temp, data = cake)
+me <- aov(formula = Angle~Recipe+Temp, data = cake)
 summary(me)
 plot(me)
 

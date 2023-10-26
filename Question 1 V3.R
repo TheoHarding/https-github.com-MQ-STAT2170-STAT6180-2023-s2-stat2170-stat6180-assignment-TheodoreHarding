@@ -1,5 +1,5 @@
 # Load the traffic data
-traffic <- read.csv("./Data/traffic.csv")
+traffic <- read.csv("traffic.csv")
 
 # Part A
 # Calculate correlation matrix and create a scatterplot matrix
