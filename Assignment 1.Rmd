@@ -4,7 +4,9 @@ author: "Theodore Harding"
 date: "2023-10-26"
 output: pdf_document
 ---
-# Load the traffic data
+# Question 1
+
+Load the traffic data
 ```{r}
 traffic <- read.csv("traffic.csv")
 ```
@@ -53,6 +55,82 @@ traffic$null <- mean(traffic$spi)
 null_fit <- lm(spi ~ null, data = traffic)
 summary(null_fit)
 anova(null_fit, fit)
+```
+
+## Part D
+Goodness of fit
+```{r}
+summary(fit)
+```
+
+
+## Part E
+R-squared is a measure of the model fit and explained variability
+```{r}
+summary(fit)
+```
+
+## Part F (Stepwise Selection)
+Forward stepwise selection
+
+```{r}
+fit <- lm(spi ~ transport + road + weather + fuel, data = traffic)
+summary(fit)
+```
+
+
+Backward stepwise selection (removing 'fuel')
+```{r}
+fit <- lm(spi ~ transport + road + weather, data = traffic)
+summary(fit)
+```
+
+## Part G
+Adjusted R^2 takes into account the number of variables in the dataset
+
+
+
+# Question 2
+
+```{r}
+cake <- read.csv("cake.csv")
+```
+
+##Part A
+```{r}
+table(cake$Temp, cake$Recipe)
+```
+
+Temp and recipe do have an impact on the angle the cake broke but the  interaction variable is insignificant 
+
+It is balanced - there is the same number of subjects in each cohort
+
+##Part B
+
+```{r}
+boxplot(cake$Angle~cake$Temp)
+
+boxplot(cake$Angle~cake$Recipe)
+```
+
+
+##Part C
+```{r}
+av = aov(formula = Angle~Recipe*Temp, data = cake)
+```
+
+##Part D
+```{r}
+summary(av)
+plot(av)  
+```
+
+
+##Part E
+```{r}
+me <- aov(formula = Angle~Recipe+Temp, data = cake)
+summary(me)
+plot(me)
 ```
 
 
