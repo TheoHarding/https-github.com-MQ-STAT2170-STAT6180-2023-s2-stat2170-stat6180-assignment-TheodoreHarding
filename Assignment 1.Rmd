@@ -1,7 +1,7 @@
 ---
-title: "Assignment 1"
-author: "Theodore Harding"
-date: "2023-10-26"
+title: "STAT2170 - Assignment 1" 
+author: "Theodore Harding - 45234671"
+date: "Due Date: 2023-10-27"
 output: pdf_document
 ---
 # Question 1
@@ -43,6 +43,7 @@ summary(fit)
 ```
 
 Present the model equation
+
 $spi = 62.8071 - 2.1750 * transport - 2.4097 * road + 4.2456 * weather - 3.6145 * fuel - 0.1358 * wind$
 
 Null hypothesis: $Beta1 = Beta2 = ... = BetaN = 0$
@@ -96,7 +97,7 @@ Adjusted R^2 takes into account the number of variables in the dataset
 cake <- read.csv("cake.csv")
 ```
 
-##Part A
+## Part A
 ```{r}
 table(cake$Temp, cake$Recipe)
 ```
@@ -105,7 +106,7 @@ Temp and recipe do have an impact on the angle the cake broke but the  interacti
 
 It is balanced - there is the same number of subjects in each cohort
 
-##Part B
+## Part B
 
 ```{r}
 boxplot(cake$Angle~cake$Temp)
@@ -114,19 +115,19 @@ boxplot(cake$Angle~cake$Recipe)
 ```
 
 
-##Part C
+## Part C
 ```{r}
 av = aov(formula = Angle~Recipe*Temp, data = cake)
 ```
 
-##Part D
+## Part D
 ```{r}
 summary(av)
 plot(av)  
 ```
 
 
-##Part E
+## Part E
 ```{r}
 me <- aov(formula = Angle~Recipe+Temp, data = cake)
 summary(me)
