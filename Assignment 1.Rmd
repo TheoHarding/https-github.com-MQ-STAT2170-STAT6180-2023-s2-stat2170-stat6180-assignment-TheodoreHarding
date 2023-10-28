@@ -34,6 +34,9 @@ Calculate confidence interval for the 'weather' variable
 confint(fit, 'weather', level = 0.95)
 ```
 
+
+Looking at the Confidence Interval: 0 is not included, therefore it is significant.
+
 ## Part C
 Display the summary of the linear regression model
 
@@ -47,6 +50,7 @@ Present the model equation
 $spi = 62.8071 - 2.1750 * transport - 2.4097 * road + 4.2456 * weather - 3.6145 * fuel - 0.1358 * wind$
 
 Null hypothesis: $Beta1 = Beta2 = ... = BetaN = 0$
+
 Alternate hypothesis: $At least 1 Beta(i) != 0$
 
 
@@ -58,12 +62,23 @@ summary(null_fit)
 anova(null_fit, fit)
 ```
 
+The null distribution is the mean value of SPI
+
+With such a small p-value, the null hypothesis (H0) can be rejected. The F-statistic provides strong evidence that at least one of the predictor variables  has a significant linear relationship with the dependent variable (spi).The perdictor variables being; transport, road, weather, fuel, wind.
+
 ## Part D
 Goodness of fit
 ```{r}
 summary(fit)
 ```
 
+### Re-run the model without 'fuel' and 'wind'
+```{r}
+fit_updated <- lm(spi ~ transport + road + weather, data = traffic)
+summary(fit_updated)
+```
+
+Since fuel and wind are not significant variables it could be ideal to removed them from the model. This makes the model clearer by only showing useful data.
 
 ## Part E
 R-squared is a measure of the model fit and explained variability
@@ -71,8 +86,10 @@ R-squared is a measure of the model fit and explained variability
 summary(fit)
 ```
 
+Note: The R-Squared value here is $0.7405$
+
 ## Part F (Stepwise Selection)
-Forward stepwise selection
+Backwards stepwise selection
 
 ```{r}
 fit <- lm(spi ~ transport + road + weather + fuel, data = traffic)
@@ -87,7 +104,7 @@ summary(fit)
 ```
 
 ## Part G
-Adjusted R^2 takes into account the number of variables in the dataset
+Adjusted R^2 takes into account the number of variables in the dataset. The adjusted R-Squared is close to the multiple R squared in the final model, meaning the model is not over fitting based on superfluous variables
 
 
 
@@ -102,7 +119,7 @@ cake <- read.csv("cake.csv")
 table(cake$Temp, cake$Recipe)
 ```
 
-Temp and recipe do have an impact on the angle the cake broke but the  interaction variable is insignificant 
+ 
 
 It is balanced - there is the same number of subjects in each cohort
 
@@ -114,6 +131,7 @@ boxplot(cake$Angle~cake$Temp)
 boxplot(cake$Angle~cake$Recipe)
 ```
 
+Temp and recipe do have an impact on the angle the cake broke but the  interaction variable is insignificant
 
 ## Part C
 ```{r}
@@ -126,6 +144,13 @@ summary(av)
 plot(av)  
 ```
 
+*Null Hypothesis:*
+There is no significant effect of either the "Recipe" factor, the "Temp" factor, or their interaction ("Recipe:Temp") on the dependent variable.
+
+*Alternate Hypothesis:*
+At least one of the factors ("Recipe" or "Temp") or their interaction ("Recipe:Temp") has a significant effect on the dependent variable.
+
+In conclusion, the findings show that although their interaction does not significantly affect the dependent variable, the "Recipe" and "Temp" factors do. The data and the model fit each other well.
 
 ## Part E
 ```{r}
@@ -133,5 +158,32 @@ me <- aov(formula = Angle~Recipe+Temp, data = cake)
 summary(me)
 plot(me)
 ```
+
+*Null Hypothesis:*
+There are no appreciable variations in the means of the groups that are characterised by the "Temp" component, the "Recipe" factor, or their combination on the dependent variable "Angle." It asserts the equality of all group means.
+
+
+*Alternative Hypothesis:*
+Among the groups identified by the "Recipe" component, the "Temp" factor, or their interaction on the dependent variable "Angle," at least one group mean differs from the others. It suggests that there are differences in group means.
+
+
+## Part F
+
+Temp (Temperature) Effect:
+The "Temp" factor has a very significant effect on the "Angle" response variable, as seen by the extremely small p-value (0.000177) connected with it. This implies that the angle at which the cake splits is significantly influenced by the temperature at which it is baked. In particular, it seems that varying temperatures produce varying "Angle" results.
+
+
+Recipe Effect:
+
+"Recipe" has a p-value of 0.014998, which is less than 0.05. This suggests that the "Angle" response variable is significantly impacted by the "Recipe" component. As a result, the angle at which the cake splits depends on the recipe that is baked.
+
+
+Interaction Effect (Recipe:Temp): The interaction term "Recipe:Temp" has a p-value of 0.775632, which is higher than 0.05. This implies that the "Recipe" and "Temp" do not significantly interact to affect the "Angle" reaction. Put another, there is no statistically significant difference between the combined impact of "Recipe" and "Temp" on the "Angle" variable.
+
+
+In conclusion, the angle at which the cake splits is significantly influenced by both "Temp" and "Recipe" alone. It matters which recipe and temperature you use. Nevertheless, temperature and recipe do not significantly interact, which means that the combined effect of both is not substantially different from what would be predicted based on each of their independent effects.
+
+
+
 
 
