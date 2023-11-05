@@ -187,3 +187,5 @@ In conclusion, the angle at which the cake splits is significantly influenced by
 
 
 
+Proof of commit and push through RStudios to github desktop and such.
+
